@@ -68,18 +68,27 @@ app.get('/', (req, res) => {
           p {
             font-size: 1.2rem;
           }
+          a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+          }
+          a:hover {
+            text-decoration: underline;
+          }
         </style>
       </head>
       <body>
         <div class="container">
           <h1>Welcome to CoreInfraHQ</h1>
           <p>Backend API service for CoreInfraHQ Assessment</p>
+          <p>View the <a href="/documentation">API Documentation</a>.</p>
         </div>
       </body>
       </html>
     `);
   });
-
+  
 app.get('/time', async (req, res) => {
   try {
     const result = await db.query('SELECT NOW() AS current_time');
