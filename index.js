@@ -1,8 +1,12 @@
- import express from 'express';
+// imports
+
+import express from 'express';
 import bodyParser from 'body-parser';
 import cardRoutes from './routes/route.js'; 
 import { startServer, shutdownServer } from './server.js';
 import { db } from './config/pgDB.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const app = express();
 const PORT = process.env.PORT || 3000; 
@@ -11,10 +15,22 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// get filePath directory, for docs
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/api', cardRoutes);
 
 app.get('/', (req, res) => {
     res.send('Hello, world!');
+  });
+
+  app.get('/documentation', (req, res) => {
+    // Send the .txt file as a response
+    res.sendFile(path.join(__dirname, 'public', 'api.txt'));
   });
 
   app.get('/coreinfra', (req, res) => {
@@ -71,10 +87,15 @@ app.get('/time', async (req, res) => {
   }
 });
 
+// error log
 app.use((err, req, res, next) => {
     console.error(err.stack);
+    console.log(err.message);
     res.status(500).json({ success: false, message: 'Something went wrong!' });
+    // next()
   });
+
+  
 
 
 // Start the server

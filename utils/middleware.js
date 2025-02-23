@@ -4,11 +4,13 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+// harcoded key in env
 const ENCRYPTION_KEY = Buffer.from(process.env.ENCRYPTION_KEY, 'hex');
 
 const IV = Buffer.from(process.env.IV, 'hex');
 
 
+// henerate batch id
 export async function generateUniqueBatchId() {
   const MAX_ATTEMPTS = 10;
   let attempts = 0;
@@ -38,13 +40,14 @@ export async function createAndEncryptCVV() {
   try {
     // Step 1: Generate a random 3-digit CVV using digits 0–9
     const cvv = Array.from({ length: 3 }, () => crypto.randomInt(0, 10)).join('');
-    console.log('Generated CVV:', cvv); // Log the plain CVV
+    // Log the plain CVV
+    // console.log('Generated CVV:', cvv); 
 
     // Step 2: Encrypt the CVV
     const cipher = crypto.createCipheriv('aes-256-cbc', ENCRYPTION_KEY, IV);
     let encrypted = cipher.update(cvv, 'utf8', 'hex');
     encrypted += cipher.final('hex')
-    console.log('cvv:', encrypted);
+    // console.log('cvv:', encrypted);
 
     return encrypted;
   } catch (error) {
@@ -58,13 +61,13 @@ export async function createAndEncryptSerialNumber() {
     // Step 1: Generate a random 16-digit serial number using digits 0–9
     const serialNumber = Array.from({ length: 16 }, () => crypto.randomInt(0, 10)).join('');
     // const serialNumber = BigInt(serial);
-    console.log('Generated Serial Number:', serialNumber); 
+    // console.log('Generated Serial Number:', serialNumber); 
 
     // Step 2: Encrypt the serial number
     const cipher = crypto.createCipheriv('aes-256-cbc', ENCRYPTION_KEY, IV);
     let encrypted = cipher.update(serialNumber, 'utf8', 'hex');
     encrypted += cipher.final('hex')
-    console.log('serial:', encrypted);
+    // console.log('serial:', encrypted);
 
     return encrypted;
   } catch (error) {

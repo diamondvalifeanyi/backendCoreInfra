@@ -1,0 +1,167 @@
+API Documentation
+Base URL
+Copy
+https://backendcoreinfra.onrender.com
+
+Endpoints
+1. Root Endpoint
+Description: A simple welcome message.
+
+Endpoint: GET /
+
+Response:
+
+json
+Copy
+"Hello, world!"
+
+2. CoreInfraHQ Welcome Page
+Description: Returns an HTML page with a welcome message.
+
+Endpoint: GET /coreinfra
+
+Response:
+Welcome to CoreInfraHQ
+Backend API service for CoreInfraHQ Assessment
+
+
+3. Get Current Time
+Description: Fetches the current time from the database.
+
+Endpoint: GET /time
+
+Response:
+
+json
+Copy
+{
+  "currentTime": "2023-10-10T12:34:56.789Z"
+}
+
+
+4. Card Management
+Create a New Card
+Description: Creates a new card.
+
+Endpoint: POST /api/cards
+
+Request Body:
+
+json
+{
+  "branch_name": "Main Branch",
+  "initiator": "John Doe",
+  "card_type": "Debit",
+  "charges": "50.00",
+  "quantity": 100,
+  "date_requested": "2025-02-25T12:00:00Z",
+  "status": "pending",
+  "actions": "downloadForProduction",
+  "email": "johndoepaddy@example.com"
+}
+Response:
+
+json
+Copy
+{
+  "success": true,
+  "message": "Card created successfully",
+  "data": {
+    
+  }
+}
+
+Get Card Details by Batch ID
+Description: Retrieves card details by batch ID.
+gets batch_id from params
+
+Endpoint: GET /api/cards/:batch_id
+
+Response:
+
+json
+Copy
+{
+  "success": true,
+  "data": {
+   
+  }
+
+
+5. Card Profile
+Create a Card Profile
+Description: Creates a new card profile.
+
+Endpoint: POST /api/profile
+
+Request Body:
+
+json
+Copy
+{
+  "cardName": "hello",
+  "cardScheme": "verve",
+  "description": "Debit",
+  "Branch": "headoffice",
+  "BIN": "10010001",
+  "currency": "NGN"
+}
+
+Response:
+
+json
+Copy
+{
+  "success": true,
+  "message": "Card profile created successfully",
+  "data": {
+   
+  }
+
+Get Card Profile by BIN
+Description: Retrieves card profile details by BIN.
+gets bin from params
+
+Endpoint: GET /api/profile/:bin
+
+Response:
+
+json
+Copy
+{
+  "success": true,
+  "data": {
+   
+  }
+
+6. Dashboard
+Get Dashboard Data by Batch ID
+Description: Retrieves dashboard data by batch ID.
+
+Endpoint: GET /api/dashboard/:batch_id
+
+Response:
+
+json
+Copy
+{
+  "success": true,
+  "data": {
+    "batch_id": "BATCH001",
+    "total_cards": 100,
+    "active_cards": 80,
+    "expired_cards": 20
+  }
+}
+
+Error Handling
+Generic Error Response
+If an error occurs, the API will return the following response:
+
+json
+Copy
+{
+  "success": false,
+  "message": "Something went wrong!"
+}
+

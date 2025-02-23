@@ -85,7 +85,11 @@ import {
   
   export const getCardDetailsController = async (req, res) => {
     try {
+
+      // get from params
        const { batch_id } = req.params;
+
+       // check if missing/invalid
 
        if (!batch_id || typeof batch_id !== 'string') {
         return res.status(400).json({
@@ -209,6 +213,8 @@ import {
                 message: 'Batch ID not found/No Data with batchid/Does not exists'
             });
         }
+
+        // details to retrieve from db
 
       const dashboardQuery = `
         WITH recent_requests AS (
@@ -384,7 +390,7 @@ import {
 
 export const createProfileController = async (req, res) => {
   try {
-    // Ensure the cards table exists
+    // Ensure the profile table exists
     await createCardsProfile();
 
     // Extract other fields from the request body
@@ -397,7 +403,7 @@ export const createProfileController = async (req, res) => {
       currency,
     } = req.body;
 
-    // Insert the new card into the database
+    // Insert the new table into the database
     const result = await db.query(
       `
       INSERT INTO profile (
@@ -420,7 +426,7 @@ export const createProfileController = async (req, res) => {
         ]
     );
 
-    // Respond with the newly created card
+    // Respond with the newly created profile
     res.status(201).json({
       success: true,
       message: 'profile created successfully',
@@ -469,7 +475,8 @@ export const getProfileByBinController = async (req, res) => {
     res.status(200).json({
       success: true,
       message: 'Profile fetched successfully',
-      data: result.rows[0], // Return the first matching profile
+      // Return the first matching profile
+      data: result.rows[0], 
     });
   } catch (error) {
     console.error('Error fetching profile by BIN:', error);

@@ -14,11 +14,11 @@ const pool = new Pool({
   password: process.env.db_Password,
   port: process.env.db_Port,
   ssl: {
-    rejectUnauthorized: false, // Required for Render's PostgreSQL
+    rejectUnauthorized: false,
   },
 });
 
-// Listen for pool errors
+// errors
 pool.on('error', (err) => {
   console.error('Unexpected error on idle client', err);
 });
