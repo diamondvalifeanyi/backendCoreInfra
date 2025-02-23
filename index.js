@@ -7,9 +7,12 @@ import { startServer, shutdownServer } from './server.js';
 import { db } from './config/pgDB.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 3000; 
+
+app.use(cors());
 
 // Middleware
 app.use(bodyParser.json());
