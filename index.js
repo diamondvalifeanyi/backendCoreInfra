@@ -17,6 +17,10 @@ app.get('/', (req, res) => {
     res.send('Hello, world!');
   });
 
+  app.get('/coreinfra', (req, res) => {
+    res.send('Backend API service for CoreInfraHq Assessment');
+  });
+
 app.get('/time', async (req, res) => {
   try {
     const result = await db.query('SELECT NOW() AS current_time');
