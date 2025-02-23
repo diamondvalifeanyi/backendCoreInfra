@@ -5,7 +5,7 @@ import {
   // getCardDetailsEmail,
   getDashboardData,
   createProfileController,
-  getProfileByBinController
+  getProfileByBinController 
 } from '../controllers/cardController.js';
 
 const router = express.Router();
