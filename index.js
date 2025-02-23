@@ -27,68 +27,66 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', cardRoutes);
 
-app.get('/', (req, res) => {
-    res.send('Hello, world!');
-  });
+app.get('/documentation', (req, res) => {
+  // Send the .txt file as a response
+  res.sendFile(path.join(__dirname, 'public', 'api.txt'));
+ });
 
-  app.get('/documentation', (req, res) => {
-    // Send the .txt file as a response
-    res.sendFile(path.join(__dirname, 'public', 'api.txt'));
-  });
+ app.get('/', (req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>CoreInfraHQ Assessment</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f9;
+          color: #333;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+        }
+        .container {
+          text-align: center;
+          background-color: #fff;
+          padding: 2rem;
+          border-radius: 8px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+          color: #007bff;
+        }
+        p {
+          font-size: 1.2rem;
+        }
+        a {
+          color: #007bff;
+          text-decoration: none;
+          font-weight: bold;
+        }
+        a:hover {
+          text-decoration: underline;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <h1>Hello! Welcome to CoreInfraHQ</h1>
+        <p>Backend API service for CoreInfraHQ Assessment</p>
+        <p>View the <a href="/documentation" target="_blank">API Documentation</a>.</p>
+        <p>View the <a href="https://github.com/diamondvalifeanyi/backendCoreInfra" target="_blank">GitHub Repository</a>.</p>
+      </div>
+    </body>
+    </html>
+  `);
+});
 
-  app.get('/coreinfra', (req, res) => {
-    res.send(`
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CoreInfraHQ Assessment</title>
-        <style>
-          body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-          }
-          .container {
-            text-align: center;
-            background-color: #fff;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          }
-          h1 {
-            color: #007bff;
-          }
-          p {
-            font-size: 1.2rem;
-          }
-          a {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-          }
-          a:hover {
-            text-decoration: underline;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <h1>Welcome to CoreInfraHQ</h1>
-          <p>Backend API service for CoreInfraHQ Assessment</p>
-          <p>View the <a href="/documentation">API Documentation</a>.</p>
-        </div>
-      </body>
-      </html>
-    `);
-  });
-  
+
 app.get('/time', async (req, res) => {
   try {
     const result = await db.query('SELECT NOW() AS current_time');
