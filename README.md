@@ -4,6 +4,9 @@ Backend: Card Management System
 ## Description
 A backend system for managing card-related operations, including a dashboard, card request flow, and card profile flow. Built with Node.js, Express.js, and PostgreSQL.
 
+## DOCUMENTATION
+you can view at baseurl/documentation once the service is running. 
+
 ## Features
 Dashboard – Displays card-related information.
 
