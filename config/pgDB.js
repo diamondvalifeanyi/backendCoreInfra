@@ -2,7 +2,7 @@
 import pg from 'pg';
 import dotenv from 'dotenv';
 
-dotenv.config(); 
+dotenv.config();
 
 const { Pool } = pg;
 
@@ -13,6 +13,9 @@ const pool = new Pool({
   database: process.env.db_Name,
   password: process.env.db_Password,
   port: process.env.db_Port,
+  ssl: {
+    rejectUnauthorized: false, // Required for Render's PostgreSQL
+  },
 });
 
 // Listen for pool errors
@@ -27,7 +30,7 @@ export async function testConnection() {
     console.log('Database connection successful. Current time:', res.rows[0].current_time);
   } catch (err) {
     console.error('Error connecting to the database:', err);
-    process.exit(1); 
+    process.exit(1);
   }
 }
 
@@ -39,12 +42,11 @@ export const db = {
       return result;
     } catch (err) {
       console.error('Error executing query:', err);
-      throw err; 
+      throw err;
     }
   },
   end: () => pool.end(),
-}; 
-
+};
 
 // import pg from 'pg';
 // import dotenv from 'dotenv';
