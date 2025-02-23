@@ -20,7 +20,7 @@ cd lapo-backend
 
 ## Install dependencies:
 bash
-Copy
+Copy,
 npm install
 
 ## Usage
@@ -28,22 +28,12 @@ Set up PostgreSQL and update ./config/pgDB.js with your database credentials.
 ## Start the server:
 bash
 Copy
-npm start
+npm start,
 Verify by visiting http://localhost:4000/.
 
 ## Configuration
 Add a .env file:
 
-env
-Copy
-db_Host=localhost
-db_User=your_db_user
-db_Password=your_db_password
-db_Name=your_db_name
-db_Port=your_postgres_port
-port=4000
-ENCRYPTION_KEY
-IV
 
 The encryption key for this was hardcoded in the env, you can do same for yours or generate dynamically as you code.
 
